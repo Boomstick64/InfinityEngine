@@ -2,7 +2,8 @@ workspace "InfinityEngine"
 	configurations {"Debug", "Release"}
 	architecture "x86_64"
 
-	project "InfinityEngine"
+	projectname = "InfinityEngine"
+	project(projectname)
 		kind "ConsoleApp"
 		language "C++"
 		cppdialect "C++20"

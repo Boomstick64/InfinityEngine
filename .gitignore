@@ -41,10 +41,12 @@ bld/
 /.vs
 
 # Exclude solution files
-*.sln
+**.sln
 
 # Exclude project files
-*.vcxproj
+**.vcxproj
+**.vcxproj.user
+**.vcxproj.filters
 
 # Exclude build
 /build
