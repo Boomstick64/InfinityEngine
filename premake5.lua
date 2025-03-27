@@ -14,6 +14,8 @@ function NewProject(projectname)
 		"%{wks.location}/**.lua", "%{wks.location}/**.txt", "%{wks.location}/**.md", "%{wks.location}/**.ini"
 	}
 	
+	includedirs {"{wks.location}", "{prj.location}", "{wks.location}/Source/" }
+
 	filter "configurations:Debug"
 		defines { "DEBUG", "_DEBUG" }
 		symbols "On"
