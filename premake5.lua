@@ -1,29 +1,43 @@
+function NewProject(projectname)
+	project(projectname)
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++20"
+	
+	targetdir "%{wks.location}/Build/Binaries/%{cfg.architecture}-%{cfg.buildcfg}/"
+	objdir "%{wks.location}/Build/Intermediate/%{cfg.architecture}-%{cfg.buildcfg}/%{prj.name}/"
+	
+	location "%{wks.location}/Intermediate/ProjectFiles/"
+	files { 
+		"%{wks.location}/**.h", "%{wks.location}/**.hpp", "%{wks.location}/**.hh", "%{wks.location}/**.hxx",
+		"%{wks.location}/**.c", "%{wks.location}/**.cpp", "%{wks.location}/**.cc", "%{wks.location}/**.cxx",
+		"%{wks.location}/**.lua", "%{wks.location}/**.txt", "%{wks.location}/**.md", "%{wks.location}/**.ini"
+	}
+	
+	filter "configurations:Debug"
+		defines { "DEBUG", "_DEBUG" }
+		symbols "On"
+	filter{}
+	
+	filter "configurations:Release"
+		defines { "NDEBUG" }
+		optimize "On"
+	filter{}
+end
+
+function SetSharedLib()
+	kind "SharedLib"
+	defines {"%{prj.name}_BUILD_DLL"}
+end
+
 workspace "InfinityEngine"
 	configurations {"Debug", "Release"}
 	architecture "x86_64"
 
-	projectname = "InfinityEngine"
-	project(projectname)
-		kind "ConsoleApp"
-		language "C++"
-		cppdialect "C++20"
+	matches = os.matchfiles("./**/**.lua")
+	for i in ipairs(matches) do
+	matchedpath = "./" .. path.getrelative("./", matches[i])
+	print(matchedpath)
+	include(matchedpath)
+	end
 
-		targetdir "%{wks.location}/Build/Binaries/%{cfg.architecture}-%{cfg.buildcfg}/"
-		objdir "%{wks.location}/Build/Intermediate/%{cfg.architecture}-%{cfg.buildcfg}/%{prj.name}/"
-
-		location "%{wks.location}/Intermediate/ProjectFiles/"
-		files { 
-			"%{prj.location}/**.h", "%{prj.location}/**.hpp", "%{prj.location}/**.hh", "%{prj.location}/**.hxx",
-			"%{prj.location}/**.c", "%{prj.location}/**.cpp", "%{prj.location}/**.cc", "%{prj.location}/**.cxx",
-			"%{prj.location}/**.lua", "%{prj.location}/**.txt", "%{prj.location}/**.md", "%{prj.location}/**.ini"
-		}
-
-		filter "configurations:Debug"
-			defines { "DEBUG", "_DEBUG" }
-			symbols "On"
-		filter{}
-
-		filter "configurations:Release"
-			defines { "NDEBUG" }
-			optimize "On"
-		filter{}
