@@ -48,6 +48,20 @@ bld/
 **.vcxproj.user
 **.vcxproj.filters
 
+# Exclude .exe files
+**.exe
+**.exe.recipe
+
+# Exclude .dll files
+**.dll
+**.dll.recipe
+
+# Exclude .lib files
+**.lib
+
+# Exclude .exp files
+**.exp
+
 # Exclude build
 /build
 

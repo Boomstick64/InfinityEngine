@@ -1,20 +1,23 @@
-function NewProject(projectname)
+function NewProject(projectname, projectdirectory)
+	if (projectdirectory == nil) then
+		projectdirectory = projectname
+	end
 	project(projectname)
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++20"
 	
-	targetdir "%{wks.location}/Build/Binaries/%{cfg.architecture}-%{cfg.buildcfg}/"
-	objdir "%{wks.location}/Build/Intermediate/%{cfg.architecture}-%{cfg.buildcfg}/%{prj.name}/"
-	
-	location "%{wks.location}/Intermediate/ProjectFiles/"
+	targetdir "%{wks.location}/Binaries/%{cfg.architecture}-%{cfg.buildcfg}/"
+	objdir "%{wks.location}/Binaries/Intermediate/%{cfg.architecture}-%{cfg.buildcfg}/%{prj.name}/"
+
+	location "%{wks.location}/Intermediate/ProjectFiles/%{prj.name}/"
 	files { 
-		"%{wks.location}/**.h", "%{wks.location}/**.hpp", "%{wks.location}/**.hh", "%{wks.location}/**.hxx",
-		"%{wks.location}/**.c", "%{wks.location}/**.cpp", "%{wks.location}/**.cc", "%{wks.location}/**.cxx",
-		"%{wks.location}/**.lua", "%{wks.location}/**.txt", "%{wks.location}/**.md", "%{wks.location}/**.ini"
+		"%{wks.location}/" .. projectdirectory .. "/**.h", "%{wks.location}/" .. projectdirectory .. "/**.hpp", "%{wks.location}/" .. projectdirectory .. "/**.hh", "%{wks.location}/" .. projectdirectory .. "/**.hxx",
+		"%{wks.location}/" .. projectdirectory .. "/**.c", "%{wks.location}/" .. projectdirectory .. "/**.cpp", "%{wks.location}/" .. projectdirectory .. "/**.cc", "%{wks.location}/" .. projectdirectory .. "/**.cxx",
+		"%{wks.location}/" .. projectdirectory .. "/**.lua", "%{wks.location}/" .. projectdirectory .. "/**.txt", "%{wks.location}/" .. projectdirectory .. "/**.md", "%{wks.location}/" .. projectdirectory .. "/**.ini"
 	}
-	
-	includedirs {"{wks.location}", "{prj.location}", "{wks.location}/Source/" }
+
+	includedirs {"%{wks.location}", "%{prj.location}", "%{wks.location}/" .. projectdirectory .. "/" }
 
 	filter "configurations:Debug"
 		defines { "DEBUG", "_DEBUG" }
@@ -29,17 +32,20 @@ end
 
 function SetSharedLib()
 	kind "SharedLib"
-	defines {"%{prj.name}_BUILD_DLL"}
+	defines { "%{prj.name:upper(prj.name)}_BUILD_DLL"}
 end
 
 workspace "InfinityEngine"
 	configurations {"Debug", "Release"}
 	architecture "x86_64"
 
-	matches = os.matchfiles("./**/**.lua")
+	matches = os.matchfiles("./**.lua")
 	for i in ipairs(matches) do
-	matchedpath = "./" .. path.getrelative("./", matches[i])
-	print(matchedpath)
-	include(matchedpath)
+	if not (matches[i] == "premake5.lua") then
+		matchedpath = "./" .. path.getrelative("./", matches[i])
+		print(matchedpath)
+		include(matchedpath)
+	end
+	
 	end
 
