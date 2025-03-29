@@ -1,10 +1,7 @@
-#include "Game/Source/Test.h"
+#pragma once
+
 
 int main()
 {
-	Test Test;
-
-	Test.TestFunction();
-
 	return 0;
 }
