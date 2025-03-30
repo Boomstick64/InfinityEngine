@@ -31,6 +31,9 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Bb]inaries/
+
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -61,6 +64,15 @@ bld/
 
 # Exclude .exp files
 **.exp
+
+# Exclude .d files
+**.d
+
+# Exclude .o files
+**.o
+
+# Exclude .vscode directory
+.vscode/
 
 # Exclude build
 /build
@@ -424,3 +436,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+Makefile

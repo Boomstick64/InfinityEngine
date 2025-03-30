@@ -28,6 +28,16 @@ function NewProject(projectname, projectdirectory)
 		defines { "NDEBUG" }
 		optimize "On"
 	filter{}
+
+	filter "system:Windows"
+		defines {"PLATFORM_WINDOWS"}
+	filter {}
+
+	filter "system:Linux"
+		defines {"PLATFORM_LINUX"}
+		libdirs {os.findlib("X11")}
+		links {"X11"}
+	filter {}
 end
 
 function SetSharedLib()
