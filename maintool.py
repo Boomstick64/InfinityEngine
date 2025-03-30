@@ -11,4 +11,4 @@ if __name__ == "__main__":
         subprocess.run(("premake5.exe", "vs2022"))
     elif platform.system() == "Linux":
         # Call premake
-        subprocess.run(("premake5"))
+        subprocess.run(("./premake5", "vs2022"))
