@@ -1,5 +1,18 @@
 #ifdef PLATFORM_WINDOWS
 #include <windows.h>
+#include "Source/Handles/StackHandle.h"
+#include "Source/DefaultMain.h"
+
+typedef DefaultMain Main;
+
+int main()
+{
+	StackHandle Handle = StackHandle<Main>();
+
+	IMain& Main = Handle.GetObj();
+
+	return Main.Main();
+}
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void OnSize(HWND hwnd, UINT flag, int width, int height);
