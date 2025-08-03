@@ -1,6 +1,4 @@
-#define MAIN_FILE
-#include "InterfaceTypes.h"
-#undef MAIN_FILE
+#include MAIN_FILE
 
 #ifdef PLATFORM_WINDOWS
 
@@ -11,7 +9,7 @@ int main()
 	StackHandle Handle = StackHandle<Main>();
 
 	IMain& Main = Handle.GetObj();
-
+	
 	return Main.Main();
 }
 

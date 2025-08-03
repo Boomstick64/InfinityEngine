@@ -1,4 +1,7 @@
 #pragma once
+#include "../MacroHelpers.h"
+
+INTERFACE_TYPEDEF(WINDOW_TYPE, DefaultWindow)
 
 class IWindow
 {

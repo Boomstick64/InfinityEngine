@@ -1,14 +1,17 @@
 #include "DefaultMain.h"
 
-#define WINDOW_FILE
-#include "../InterfaceTypes.h"
-#undef WINDOW_FILE
+#include WINDOW_FILE
+
+#include <cstdio>
+
 
 #include "Source/Handles/StackHandle.h"
 
 int DefaultMain::Main()
 {
-	StackHandle Handle = StackHandle<Window>();
+	StackHandle Handle = StackHandle<DefaultWindow>();
+
+	printf("The function is %s \n", __FUNCSIG__);
 
 	IWindow& WindowInterface = Handle.GetObj();
 
