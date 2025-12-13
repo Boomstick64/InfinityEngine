@@ -10,3 +10,11 @@ NewProject("InfinityEngine", "Engine")
 		"RENDERER_FILE=\"Source/Graphics/DirectX.h\"", "RENDERER_TYPE=DirectX"
 	}
 	filter {}
+
+	filter "system:Linux"
+		libdirs {os.findlib("X11")}
+		links {"X11"}
+		defines {
+			"WINDOW_FILE=\"Source/Window/LinuxWindow.h\"", "WINDOW_TYPE=LinuxWindow"
+	}
+	filter {}

@@ -9,6 +9,8 @@ public:
 
 	}
 
+	~StackHandle() {}
+	
 	T& GetObj()
 	{
 		return Object;

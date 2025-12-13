@@ -1,10 +1,10 @@
 #pragma once
 
+#ifdef PLATFORM_WINDOWS
+
 #include "../Interfaces/WindowInterface.h"
 
 #include <windows.h>
-#include <iostream>
-#include <memory.h>
 
 class IRenderer;
 
@@ -14,7 +14,7 @@ public:
 
 	WindowsWindow();
 	~WindowsWindow();
-	virtual void Register() override;
+	virtual void Init() override;
 	virtual void Create() override;
 	virtual void Show() override;
 	virtual void Update() override;
@@ -33,3 +33,5 @@ public:
 	virtual int GetWindowWidth() override { return Width; }
 	virtual int GetWindowHeight() override { return Height; }
 };
+
+#endif

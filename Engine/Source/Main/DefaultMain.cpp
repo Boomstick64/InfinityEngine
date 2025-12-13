@@ -13,7 +13,7 @@ int DefaultMain::Main()
 
 	IWindow& WindowInterface = Handle.GetObj();
 
-	WindowInterface.Register();
+	WindowInterface.Init();
 
 	WindowInterface.Create();
 

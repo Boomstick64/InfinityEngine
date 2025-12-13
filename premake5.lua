@@ -35,8 +35,6 @@ function NewProject(projectname, projectdirectory)
 
 	filter "system:Linux"
 		defines {"PLATFORM_LINUX"}
-		libdirs {os.findlib("X11")}
-		links {"X11"}
 	filter {}
 end
 

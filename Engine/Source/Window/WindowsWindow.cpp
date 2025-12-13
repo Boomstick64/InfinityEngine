@@ -1,6 +1,7 @@
 
 #include "WindowsWindow.h"
 
+#ifdef PLATFORM_WINDOWS
 #include <cstdio>
 
 #include RENDERER_FILE
@@ -20,7 +21,7 @@ WindowsWindow::~WindowsWindow()
 	delete ActiveRenderer;
 }
 
-void WindowsWindow::Register()
+void WindowsWindow::Init()
 {
 	FreeConsole();
 
@@ -150,3 +151,5 @@ void OnSize(HWND hwnd, UINT flag, int width, int height)
 {
 	
 }
+
+#endif
