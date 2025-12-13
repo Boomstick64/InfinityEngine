@@ -18,6 +18,7 @@ public:
 	virtual void Create() override;
 	virtual void Show() override;
 	virtual void Update() override;
+	virtual void Close() override {}
 
 	HWND WindowHandle;
 
