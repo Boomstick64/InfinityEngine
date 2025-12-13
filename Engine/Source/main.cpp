@@ -13,7 +13,6 @@ int main()
 	return Main.Main();
 }
 
-
 #endif
 
 #ifdef PLATFORM_LINUX

@@ -13,4 +13,6 @@ public:
 	virtual void Create() = 0;
 	virtual void Show() = 0;
 	virtual void Update() = 0;
+	virtual int GetWindowWidth() = 0;
+	virtual int GetWindowHeight() = 0;
 };

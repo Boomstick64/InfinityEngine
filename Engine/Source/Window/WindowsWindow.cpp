@@ -1,10 +1,24 @@
 
 #include "WindowsWindow.h"
 
+#include <cstdio>
+
+#include RENDERER_FILE
+
 const wchar_t WindowClassName[] = L"Infinity Engine";
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void OnSize(HWND hwnd, UINT flag, int width, int height);
+
+WindowsWindow::WindowsWindow() : ActiveRenderer(new Renderer())
+{
+	
+}
+
+WindowsWindow::~WindowsWindow()
+{
+	delete ActiveRenderer;
+}
 
 void WindowsWindow::Register()
 {
@@ -36,7 +50,7 @@ void WindowsWindow::Create()
 		L"InfinityEngine",				// Window text
 		WS_OVERLAPPEDWINDOW,			// Window style
 
-		// Size and position
+		// Position and size
 		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 
 		NULL,		// Parent window
@@ -45,7 +59,13 @@ void WindowsWindow::Create()
 		NULL		// Additional application data
 	);
 
+	if (ActiveRenderer != nullptr)
+	{
+		ActiveRenderer->SetWindowInterface(this);
 
+		ActiveRenderer->Init();
+	}
+	
 }
 
 void WindowsWindow::Show()
@@ -59,13 +79,36 @@ void WindowsWindow::Update()
 {
 	// Run the message loop
 
+	RECT Rect = {};
 	MSG msg = {};
-	while (GetMessage(&msg, NULL, 0, 0) > 0)
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
+	bool ApplicationRunning = true;
 
+	while (ApplicationRunning)
+	{
+		while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				ApplicationRunning = false;
+				break;
+			}
+
+			if (GetWindowRect(WindowHandle, &Rect))
+			{
+				Width = Rect.right - Rect.left;
+				Height = Rect.bottom - Rect.top;
+			}
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		if (ActiveRenderer != nullptr)
+		{
+			ActiveRenderer->Update();
+		}
+	}
+	
 	DeleteObject(WindowHandle);
 }
 
@@ -105,5 +148,5 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void OnSize(HWND hwnd, UINT flag, int width, int height)
 {
-
+	
 }

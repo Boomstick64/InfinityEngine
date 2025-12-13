@@ -11,8 +11,6 @@ int DefaultMain::Main()
 {
 	StackHandle Handle = StackHandle<DefaultWindow>();
 
-	printf("The function is %s \n", __FUNCSIG__);
-
 	IWindow& WindowInterface = Handle.GetObj();
 
 	WindowInterface.Register();

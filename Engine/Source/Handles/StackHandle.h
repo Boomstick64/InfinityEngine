@@ -4,9 +4,9 @@ template<typename T>
 class StackHandle
 {
 public:
-	StackHandle()
+	StackHandle() : Object()
 	{
-		Object = T();
+
 	}
 
 	T& GetObj()
